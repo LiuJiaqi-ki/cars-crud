@@ -33,6 +33,9 @@ def test_user_edits_car_and_change_survives_reload(page, live_server):
     page.get_by_label("Year", exact=True).fill("2023")
     page.get_by_role("button", name="Save changes").click()
 
+    page.get_by_role("button", name="Save changes").click()
+    # 加一句等待页面加载完成
+    page.wait_for_load_state("networkidle") 
     # 4. 断言详情页标题变成了 Honda Accord
     expect(page.get_by_role("heading", name="Honda Accord")).to_be_visible(timeout=15000)
 
